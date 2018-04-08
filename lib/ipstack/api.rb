@@ -7,8 +7,11 @@ module Ipstack
     # Make sure we can access parameters of the object
     attr_accessor :api_url, :content_type, :access_key, :optionals, :params_uri
     def initialize(optionals = {}, access_key = ENV['IPSTACK_ACCESS_KEY'])
-      @api_url = 'http://api.ipstack.com/'
+
+      raise ArgumentError, 'Requires a hash of optional values found on https://ipstack.com/documentation' unless optionals.is_a?(Hash)
       raise ArgumentError, '\'access_key\' (api key) cannot be nil. Obtain your key from https://ipstack.com/quickstart and set it as ENV[\'IPSTACK_ACCESS_KEY\']' if access_key.nil? || access_key == ''
+
+      @api_url = 'http://api.ipstack.com/'
       @access_key = access_key
       @params_uri = "?access_key=#{access_key}"
       # Set params_uri with each non-nil optionals key/value
@@ -31,6 +34,25 @@ module Ipstack
         #"HTTP Error: #{response.code} #{response.message} : #{response.body}"
       end
     end
+
+    # https://ipstack.com/documentation
+    def self.standard(ip, optionals = {})
+      api_request_object = Ipstack::API.new(optionals)
+      raise('Requires a single IP') if ip.include?(',')
+      Ipstack::API.make_request(api_request_object,ip)
+    end
+
+    def self.bulk(ips, optionals = {})
+      api_request_object = Ipstack::API.new(optionals)
+      raise('Requires a list of IPs comma separated') unless ips.include?(',') && ips.match(/((25[0-5]|2[0-4]\d|[01]?\d\d?)\.(25[0-5]|2[0-4]\d|[01]?\d\d?)\.(25[0-5]|2[0-4]\d|[01]?\d\d?)\.(25[0-5]|2[0-4]\d|[01]?\d\d?)(,\n|,?$))/)
+      Ipstack::API.make_request(api_request_object,ips)
+    end
+
+    def self.check(optionals = {})
+      api_request_object = Ipstack::API.new(optionals)
+      Ipstack::API.make_request(api_request_object)
+    end
+
   end
 end
 
