@@ -1,4 +1,4 @@
-# Ipstack API
+# (Unofficial) Ipstack
 
 ## Installation
 

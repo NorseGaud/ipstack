@@ -11,7 +11,7 @@ Gem::Specification.new do |spec|
 
   spec.summary       = %q{Unofficial http://api.ipstack.com/ gem}
   spec.description   = %q{Unofficial http://api.ipstack.com/ gem providing methods for use in Ruby and Rails}
-  spec.homepage      = ''
+  spec.homepage      = 'https://github.com/NorseGaud/ipstack'
   spec.license       = 'MIT'
 
   # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'
