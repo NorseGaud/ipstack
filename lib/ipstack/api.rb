@@ -5,13 +5,13 @@ require 'nokogiri'
 
 module Ipstack
   class API
-    # Make sure we can access parameters of the object
-    attr_accessor :api_url, :content_type, :access_key, :optionals, :params_uri, :return_raw
+    attr_accessor :api_url, :content_type, :access_key, :optionals, :params_uri, :return_raw # Make sure we can access parameters of the object in methods
     def initialize(optionals = {}, access_key = ENV['IPSTACK_ACCESS_KEY'])
 
       raise ArgumentError, 'Requires a hash of optional values found on https://ipstack.com/documentation' unless optionals.is_a?(Hash)
       raise ArgumentError, '\'access_key\' (api key) cannot be nil. Obtain your key from https://ipstack.com/quickstart and set it as ENV[\'IPSTACK_ACCESS_KEY\']' if access_key.nil? || access_key == ''
 
+      # non-ipstack api custom optionals
       @return_raw = optionals[:return_raw]
       optionals.delete(:return_raw) # remove it from optionals since we each optionals for our url params
 
