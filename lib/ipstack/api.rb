@@ -51,7 +51,7 @@ module Ipstack
 
     def self.bulk(ips, optionals = {})
       api_request_object = Ipstack::API.new(optionals)
-      raise ArgumentError, 'Requires a list of IPs comma separated as first parameter' if ips.nil? || ips.empty? || ip.is_a?(Hash) || !( ips.include?(',') && ips.match(/((25[0-5]|2[0-4]\d|[01]?\d\d?)\.(25[0-5]|2[0-4]\d|[01]?\d\d?)\.(25[0-5]|2[0-4]\d|[01]?\d\d?)\.(25[0-5]|2[0-4]\d|[01]?\d\d?)(,\n|,?$))/) )
+      raise ArgumentError, 'Requires a list of IPs comma separated as first parameter' if ips.nil? || ips.empty? || ips.is_a?(Hash) || !( ips.include?(',') && ips.match(/((25[0-5]|2[0-4]\d|[01]?\d\d?)\.(25[0-5]|2[0-4]\d|[01]?\d\d?)\.(25[0-5]|2[0-4]\d|[01]?\d\d?)\.(25[0-5]|2[0-4]\d|[01]?\d\d?)(,\n|,?$))/) )
       Ipstack::API.make_request(api_request_object,ips)
     end
 
@@ -63,5 +63,3 @@ module Ipstack
 
   end
 end
-
-
